@@ -1,4 +1,5 @@
 # bootstrap.yml是系统级的，加载优先级高于application.yml。BootstrapContext是ApplicationContext的父上下文
+# 配置信息是从ConfigServer加载的，为了得到这些【配置】，需要把【引导配置】放在bootstrap.yml中
 server:
   port: 3355
 spring:
@@ -15,3 +16,9 @@ eureka:
   client:
     service-url:
       defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+# 暴露监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
