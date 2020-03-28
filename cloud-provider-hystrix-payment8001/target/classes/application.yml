@@ -1,0 +1,21 @@
+server:
+  port: 8001
+
+spring:
+  application:
+    name: cloud-provider-hystrix-payment
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+
+# 配置这个参数是为了暴露路径给hystrix 9001 监控，此方式监控的端点要加上/actuator
+# http://localhost:8001/actuator/hystrix.stream
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
