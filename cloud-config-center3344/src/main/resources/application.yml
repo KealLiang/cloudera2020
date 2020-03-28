@@ -7,9 +7,10 @@ spring:
     config:
       server:
         git:
+          # 访问 http://localhost:3344/master/config-dev.yml 即可获取对应的配置文件
           uri: git@github.com:KealLiang/cloudera2020.git
           search-paths: # 搜索目录
-            - cloudera/config
+            - config
       label: master # 读取分支
 eureka:
   client:
