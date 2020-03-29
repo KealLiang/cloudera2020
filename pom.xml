@@ -26,6 +26,7 @@
       <module>cloud-config-client3355</module>
       <module>cloud-provider-consul-payment8006</module>
       <module>cloud-consumer-consul-order80</module>
+      <module>cloud-config-client3366</module>
   </modules>
 
   <name>Maven</name>

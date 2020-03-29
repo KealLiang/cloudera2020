@@ -1,7 +1,7 @@
 # bootstrap.yml是系统级的，加载优先级高于application.yml。BootstrapContext是ApplicationContext的父上下文
 # 配置信息是从ConfigServer加载的，为了得到这些【配置】，需要把【引导配置】放在bootstrap.yml中
 server:
-  port: 3355
+  port: 3366
 spring:
   application:
     name: config-client
