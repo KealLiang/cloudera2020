@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -48,12 +51,19 @@ public class OrderController {
         return template.postForObject(url, payment, CommonResult.class);
     }
 
-    @GetMapping("comsumer/provider/loadBalance")
+    @GetMapping("consumer/provider/loadBalance")
     public String lbTest() {
         List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
         ServiceInstance instance = myLoadBalance.getInstance(instances);
         RestTemplate rt = new RestTemplate();
         return rt.getForObject(instance.getUri() + "/provider/loadBalance", String.class);
+    }
+
+    // sleuth + zipkin 监控调用
+    @GetMapping("consumer/zipkin")
+    public String zipkinTestNode() {
+        String result = template.getForObject(PAYMENT + "provider/zipkin", String.class);
+        return result;
     }
 
 }

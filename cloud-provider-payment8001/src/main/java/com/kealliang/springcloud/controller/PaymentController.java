@@ -98,4 +98,10 @@ public class PaymentController {
         try { TimeUnit.SECONDS.sleep(3); } catch (InterruptedException e) { e.printStackTrace(); }
         return "feignPaymentTimeout -> " + serverPort;
     }
+
+
+    @GetMapping("provider/zipkin")
+    public String zipkinTestNode() {
+        return "Hi, I'm zipkin test node -> " + serverPort + "\t" + UUID.randomUUID().toString();
+    }
 }
