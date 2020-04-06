@@ -3,7 +3,14 @@ server:
 
 spring:
   application:
-    name: cloud-order-com.kealliang.springcloud.service
+    name: cloud-order-service
+  # sleuth 和 zipkin 相关
+  zipkin:
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      # 采样率介于 0 到 1 之间，1表示全部采集
+      probability: 1
 
 eureka:
   client:

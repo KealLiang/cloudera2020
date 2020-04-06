@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kealliang.laboratory.dao.SupportAddressDao">
+
+    <resultMap type="com.kealliang.laboratory.entity.SupportAddress" id="SupportAddressMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="belongTo" column="belong_to" jdbcType="VARCHAR"/>
+        <result property="enName" column="en_name" jdbcType="VARCHAR"/>
+        <result property="cnName" column="cn_name" jdbcType="VARCHAR"/>
+        <result property="level" column="level" jdbcType="VARCHAR"/>
+        <result property="baiduMapLng" column="baidu_map_lng" jdbcType="OTHER"/>
+        <result property="baiduMapLat" column="baidu_map_lat" jdbcType="OTHER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="SupportAddressMap">
+        select
+          id, belong_to, en_name, cn_name, level, baidu_map_lng, baidu_map_lat
+        from zhaofang.support_address
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="SupportAddressMap">
+        select
+          id, belong_to, en_name, cn_name, level, baidu_map_lng, baidu_map_lat
+        from zhaofang.support_address
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="SupportAddressMap">
+        select
+          id, belong_to, en_name, cn_name, level, baidu_map_lng, baidu_map_lat
+        from zhaofang.support_address
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="belongTo != null and belongTo != ''">
+                and belong_to = #{belongTo}
+            </if>
+            <if test="enName != null and enName != ''">
+                and en_name = #{enName}
+            </if>
+            <if test="cnName != null and cnName != ''">
+                and cn_name = #{cnName}
+            </if>
+            <if test="level != null and level != ''">
+                and level = #{level}
+            </if>
+            <if test="baiduMapLng != null">
+                and baidu_map_lng = #{baiduMapLng}
+            </if>
+            <if test="baiduMapLat != null">
+                and baidu_map_lat = #{baiduMapLat}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into zhaofang.support_address(belong_to, en_name, cn_name, level, baidu_map_lng, baidu_map_lat)
+        values (#{belongTo}, #{enName}, #{cnName}, #{level}, #{baiduMapLng}, #{baiduMapLat})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update zhaofang.support_address
+        <set>
+            <if test="belongTo != null and belongTo != ''">
+                belong_to = #{belongTo},
+            </if>
+            <if test="enName != null and enName != ''">
+                en_name = #{enName},
+            </if>
+            <if test="cnName != null and cnName != ''">
+                cn_name = #{cnName},
+            </if>
+            <if test="level != null and level != ''">
+                level = #{level},
+            </if>
+            <if test="baiduMapLng != null">
+                baidu_map_lng = #{baiduMapLng},
+            </if>
+            <if test="baiduMapLat != null">
+                baidu_map_lat = #{baiduMapLat},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from zhaofang.support_address where id = #{id}
+    </delete>
+
+</mapper>

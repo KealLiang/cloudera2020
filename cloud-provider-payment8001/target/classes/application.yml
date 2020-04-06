@@ -20,7 +20,7 @@ spring:
     password: root
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
-  type-aliases-package: com.kealliang.springcloud.entities
+  type-aliases-package: com.kealliang.springcloud.entities # 配置了这个就可以省去在mapper.xml中写实体的全限名，直接写类名
 eureka:
   client:
     # 是否将自己注册进eureka 默认true

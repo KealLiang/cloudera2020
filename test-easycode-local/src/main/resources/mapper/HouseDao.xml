@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kealliang.laboratory.dao.HouseDao">
+
+    <resultMap type="com.kealliang.laboratory.entity.House" id="HouseMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="price" column="price" jdbcType="INTEGER"/>
+        <result property="area" column="area" jdbcType="INTEGER"/>
+        <result property="room" column="room" jdbcType="INTEGER"/>
+        <result property="floor" column="floor" jdbcType="INTEGER"/>
+        <result property="totalFloor" column="total_floor" jdbcType="INTEGER"/>
+        <result property="watchTimes" column="watch_times" jdbcType="INTEGER"/>
+        <result property="buildYear" column="build_year" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="lastUpdateTime" column="last_update_time" jdbcType="TIMESTAMP"/>
+        <result property="cityEnName" column="city_en_name" jdbcType="VARCHAR"/>
+        <result property="regionEnName" column="region_en_name" jdbcType="VARCHAR"/>
+        <result property="cover" column="cover" jdbcType="VARCHAR"/>
+        <result property="direction" column="direction" jdbcType="INTEGER"/>
+        <result property="distanceToSubway" column="distance_to_subway" jdbcType="INTEGER"/>
+        <result property="parlour" column="parlour" jdbcType="INTEGER"/>
+        <result property="district" column="district" jdbcType="VARCHAR"/>
+        <result property="adminId" column="admin_id" jdbcType="INTEGER"/>
+        <result property="bathroom" column="bathroom" jdbcType="INTEGER"/>
+        <result property="street" column="street" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="HouseMap">
+        select
+          id, title, price, area, room, floor, total_floor, watch_times, build_year, status, create_time, last_update_time, city_en_name, region_en_name, cover, direction, distance_to_subway, parlour, district, admin_id, bathroom, street
+        from zhaofang.house
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="HouseMap">
+        select
+          id, title, price, area, room, floor, total_floor, watch_times, build_year, status, create_time, last_update_time, city_en_name, region_en_name, cover, direction, distance_to_subway, parlour, district, admin_id, bathroom, street
+        from zhaofang.house
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="HouseMap">
+        select
+          id, title, price, area, room, floor, total_floor, watch_times, build_year, status, create_time, last_update_time, city_en_name, region_en_name, cover, direction, distance_to_subway, parlour, district, admin_id, bathroom, street
+        from zhaofang.house
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="price != null">
+                and price = #{price}
+            </if>
+            <if test="area != null">
+                and area = #{area}
+            </if>
+            <if test="room != null">
+                and room = #{room}
+            </if>
+            <if test="floor != null">
+                and floor = #{floor}
+            </if>
+            <if test="totalFloor != null">
+                and total_floor = #{totalFloor}
+            </if>
+            <if test="watchTimes != null">
+                and watch_times = #{watchTimes}
+            </if>
+            <if test="buildYear != null">
+                and build_year = #{buildYear}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="lastUpdateTime != null">
+                and last_update_time = #{lastUpdateTime}
+            </if>
+            <if test="cityEnName != null and cityEnName != ''">
+                and city_en_name = #{cityEnName}
+            </if>
+            <if test="regionEnName != null and regionEnName != ''">
+                and region_en_name = #{regionEnName}
+            </if>
+            <if test="cover != null and cover != ''">
+                and cover = #{cover}
+            </if>
+            <if test="direction != null">
+                and direction = #{direction}
+            </if>
+            <if test="distanceToSubway != null">
+                and distance_to_subway = #{distanceToSubway}
+            </if>
+            <if test="parlour != null">
+                and parlour = #{parlour}
+            </if>
+            <if test="district != null and district != ''">
+                and district = #{district}
+            </if>
+            <if test="adminId != null">
+                and admin_id = #{adminId}
+            </if>
+            <if test="bathroom != null">
+                and bathroom = #{bathroom}
+            </if>
+            <if test="street != null and street != ''">
+                and street = #{street}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into zhaofang.house(title, price, area, room, floor, total_floor, watch_times, build_year, status, create_time, last_update_time, city_en_name, region_en_name, cover, direction, distance_to_subway, parlour, district, admin_id, bathroom, street)
+        values (#{title}, #{price}, #{area}, #{room}, #{floor}, #{totalFloor}, #{watchTimes}, #{buildYear}, #{status}, #{createTime}, #{lastUpdateTime}, #{cityEnName}, #{regionEnName}, #{cover}, #{direction}, #{distanceToSubway}, #{parlour}, #{district}, #{adminId}, #{bathroom}, #{street})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update zhaofang.house
+        <set>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="area != null">
+                area = #{area},
+            </if>
+            <if test="room != null">
+                room = #{room},
+            </if>
+            <if test="floor != null">
+                floor = #{floor},
+            </if>
+            <if test="totalFloor != null">
+                total_floor = #{totalFloor},
+            </if>
+            <if test="watchTimes != null">
+                watch_times = #{watchTimes},
+            </if>
+            <if test="buildYear != null">
+                build_year = #{buildYear},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="lastUpdateTime != null">
+                last_update_time = #{lastUpdateTime},
+            </if>
+            <if test="cityEnName != null and cityEnName != ''">
+                city_en_name = #{cityEnName},
+            </if>
+            <if test="regionEnName != null and regionEnName != ''">
+                region_en_name = #{regionEnName},
+            </if>
+            <if test="cover != null and cover != ''">
+                cover = #{cover},
+            </if>
+            <if test="direction != null">
+                direction = #{direction},
+            </if>
+            <if test="distanceToSubway != null">
+                distance_to_subway = #{distanceToSubway},
+            </if>
+            <if test="parlour != null">
+                parlour = #{parlour},
+            </if>
+            <if test="district != null and district != ''">
+                district = #{district},
+            </if>
+            <if test="adminId != null">
+                admin_id = #{adminId},
+            </if>
+            <if test="bathroom != null">
+                bathroom = #{bathroom},
+            </if>
+            <if test="street != null and street != ''">
+                street = #{street},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from zhaofang.house where id = #{id}
+    </delete>
+
+</mapper>

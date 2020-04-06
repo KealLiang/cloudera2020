@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kealliang.laboratory.dao.HouseDetailDao">
+
+    <resultMap type="com.kealliang.laboratory.entity.HouseDetail" id="HouseDetailMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="layoutDesc" column="layout_desc" jdbcType="VARCHAR"/>
+        <result property="traffic" column="traffic" jdbcType="VARCHAR"/>
+        <result property="roundService" column="round_service" jdbcType="VARCHAR"/>
+        <result property="rentWay" column="rent_way" jdbcType="INTEGER"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="subwayLineId" column="subway_line_id" jdbcType="INTEGER"/>
+        <result property="subwayLineName" column="subway_line_name" jdbcType="VARCHAR"/>
+        <result property="subwayStationId" column="subway_station_id" jdbcType="INTEGER"/>
+        <result property="subwayStationName" column="subway_station_name" jdbcType="VARCHAR"/>
+        <result property="houseId" column="house_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="HouseDetailMap">
+        select
+          id, description, layout_desc, traffic, round_service, rent_way, address, subway_line_id, subway_line_name, subway_station_id, subway_station_name, house_id
+        from zhaofang.house_detail
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="HouseDetailMap">
+        select
+          id, description, layout_desc, traffic, round_service, rent_way, address, subway_line_id, subway_line_name, subway_station_id, subway_station_name, house_id
+        from zhaofang.house_detail
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="HouseDetailMap">
+        select
+          id, description, layout_desc, traffic, round_service, rent_way, address, subway_line_id, subway_line_name, subway_station_id, subway_station_name, house_id
+        from zhaofang.house_detail
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="description != null and description != ''">
+                and description = #{description}
+            </if>
+            <if test="layoutDesc != null and layoutDesc != ''">
+                and layout_desc = #{layoutDesc}
+            </if>
+            <if test="traffic != null and traffic != ''">
+                and traffic = #{traffic}
+            </if>
+            <if test="roundService != null and roundService != ''">
+                and round_service = #{roundService}
+            </if>
+            <if test="rentWay != null">
+                and rent_way = #{rentWay}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+            <if test="subwayLineId != null">
+                and subway_line_id = #{subwayLineId}
+            </if>
+            <if test="subwayLineName != null and subwayLineName != ''">
+                and subway_line_name = #{subwayLineName}
+            </if>
+            <if test="subwayStationId != null">
+                and subway_station_id = #{subwayStationId}
+            </if>
+            <if test="subwayStationName != null and subwayStationName != ''">
+                and subway_station_name = #{subwayStationName}
+            </if>
+            <if test="houseId != null">
+                and house_id = #{houseId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into zhaofang.house_detail(description, layout_desc, traffic, round_service, rent_way, address, subway_line_id, subway_line_name, subway_station_id, subway_station_name, house_id)
+        values (#{description}, #{layoutDesc}, #{traffic}, #{roundService}, #{rentWay}, #{address}, #{subwayLineId}, #{subwayLineName}, #{subwayStationId}, #{subwayStationName}, #{houseId})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update zhaofang.house_detail
+        <set>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="layoutDesc != null and layoutDesc != ''">
+                layout_desc = #{layoutDesc},
+            </if>
+            <if test="traffic != null and traffic != ''">
+                traffic = #{traffic},
+            </if>
+            <if test="roundService != null and roundService != ''">
+                round_service = #{roundService},
+            </if>
+            <if test="rentWay != null">
+                rent_way = #{rentWay},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="subwayLineId != null">
+                subway_line_id = #{subwayLineId},
+            </if>
+            <if test="subwayLineName != null and subwayLineName != ''">
+                subway_line_name = #{subwayLineName},
+            </if>
+            <if test="subwayStationId != null">
+                subway_station_id = #{subwayStationId},
+            </if>
+            <if test="subwayStationName != null and subwayStationName != ''">
+                subway_station_name = #{subwayStationName},
+            </if>
+            <if test="houseId != null">
+                house_id = #{houseId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from zhaofang.house_detail where id = #{id}
+    </delete>
+
+</mapper>
