@@ -28,7 +28,8 @@ public class HouseController {
      * @return 单条数据
      */
     @GetMapping("selectOne")
-    public House selectOne(Integer id) {
+    // 得把返回类型改成Object 否则切面修改返回值类型后会抛出类型转换异常
+    public Object selectOne(Integer id) {
         return this.houseService.queryById(id);
     }
 
