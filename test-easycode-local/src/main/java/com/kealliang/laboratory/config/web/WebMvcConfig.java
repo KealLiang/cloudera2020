@@ -1,4 +1,4 @@
-package com.kealliang.laboratory.config;
+package com.kealliang.laboratory.config.web;
 
 import com.kealliang.laboratory.interceptor.ReturnHandler;
 import com.kealliang.laboratory.interceptor.TestInterceptor;
@@ -28,7 +28,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> handlers) {
-        System.out.println("添加自定义的结果处理器");
+        System.out.println("添加自定义的结果处理器，这种添加方式并不能处理RestController或者ResponseBody修饰的方法");
         ReturnHandler returnHandler = new ReturnHandler();
         handlers.add(returnHandler);
     }

@@ -13,3 +13,9 @@ spring:
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
   type-aliases-package: com.kealliang.laboratory.entities
+# 自定义的配置，将所有的返回值都替换掉
+keal:
+  web:
+    response:
+      processor:
+        return-value: false
