@@ -1,0 +1,19 @@
+server:
+  port: 83
+spring:
+  application:
+    name: cloud-nacos-order
+  # nacos 地址
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+# 暴露监控端口
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+# 服务名配置，自定义的
+service-url:
+  nacos-payment-service: "http://cloud-nacos-payment-service"

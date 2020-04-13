@@ -1,0 +1,20 @@
+# bootstrap 里放配置的配置，即需要最早得到的配置
+server:
+  port: 3377
+spring:
+  application:
+    name: nacos-config-client
+  # nacos 相关配置
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848 # 注册中心的地址
+      config:
+        server-addr: 127.0.0.1:8848 # 配置中心的地址
+        file-extension: yml # 配置的格式，告诉本服务，3377可以去8848上读取格式为yml的配置
+        group: DEV_GROUP # 组
+        namespace: china # 命名空间
+
+
+# ${prefix}-${spring.profile.active}.${file-extension}
+# 读取的配置的data-id: nacos-config-client-dev.yml
