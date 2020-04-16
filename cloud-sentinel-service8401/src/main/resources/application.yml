@@ -1,0 +1,21 @@
+server:
+  port: 8401
+spring:
+  application:
+    name: cloud-sentinel-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8849 # sentinel dashboard地址 -> 也就是8849会监控8401
+        port: 8719 # 默认8719端口，若被占用则会从8719开始依次+1扫描，直到找到未被占用的为止
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+# 设置包的日志级别为debug
+logging:
+  level: {com.kealliang.springcloud: debug}
