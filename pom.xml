@@ -36,6 +36,9 @@
     <module>cloud-consumer-order-ali83</module>
     <module>cloud-config-nacos-client3377</module>
     <module>cloud-sentinel-service8401</module>
+    <module>cloud-provider-payment-combine9003</module>
+    <module>cloud-provider-payment-combine9004</module>
+      <module>cloud-consumer-nacos-combine84</module>
   </modules>
 
   <name>Maven</name>

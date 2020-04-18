@@ -11,6 +11,16 @@ spring:
       transport:
         dashboard: localhost:8849 # sentinel dashboard地址 -> 也就是8849会监控8401
         port: 8719 # 默认8719端口，若被占用则会从8719开始依次+1扫描，直到找到未被占用的为止
+      # 本应用规则持久化的配置，这里的配置其实是告诉本应用要去哪拉规则的文本
+      # 这里是手动粘贴规则json到nacos来实现持久化，更一般的做法见 http://www.imooc.com/article/details/id/289464
+      datasource:
+        ds1: # 名称随意
+          nacos: # 持久化到nacos上，也可以配redis等
+            server-addr: localhost:8848 # nacos
+            dataId: ${spring.application.name}
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: flow # 流式规则
 management:
   endpoints:
     web:

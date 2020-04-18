@@ -40,6 +40,13 @@ public class FlowLimitController {
         return "sentinel service ==> testB " + order;
     }
 
+    @GetMapping("testC")
+    public String testC () {
+        log.debug(Thread.currentThread().getName() + " ----------> testC");
+        String order = orderService.getOrder();
+        return "sentinel service ==> testC " + order;
+    }
+
     @GetMapping("testD")
     public String testD () {
         try { TimeUnit.SECONDS.sleep(1); } catch (InterruptedException e) { e.printStackTrace(); }

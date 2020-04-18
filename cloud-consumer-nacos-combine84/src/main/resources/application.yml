@@ -1,0 +1,28 @@
+server:
+  port: 84
+spring:
+  application:
+    name: cloud-consumer-nacos-combine
+  # nacos 地址
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8849 # sentinel dashboard地址 -> 也就是8849会监控8401
+        port: 8719 # 默认8719端口，若被占用则会从8719开始依次+1扫描，直到找到未被占用的为止
+# 消费端sentinel开启feign
+feign:
+  sentinel:
+    enabled: true
+
+# 暴露监控端口
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+# 服务名配置，自定义的
+service-url:
+  nacos-payment-service: "http://cloud-payment-provider-combine"
