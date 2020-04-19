@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kealliang.cloud.dao.StorageTblDao">
+
+    <resultMap type="com.kealliang.cloud.entity.StorageTbl" id="StorageTblMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="commodityCode" column="commodity_code" jdbcType="VARCHAR"/>
+        <result property="count" column="count" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="StorageTblMap">
+        select
+          id, commodity_code, count
+        from storage_tbl
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="StorageTblMap">
+        select
+          id, commodity_code, count
+        from storage_tbl
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="StorageTblMap">
+        select
+          id, commodity_code, count
+        from storage_tbl
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="commodityCode != null and commodityCode != ''">
+                and commodity_code = #{commodityCode}
+            </if>
+            <if test="count != null">
+                and count = #{count}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into storage_tbl(commodity_code, count)
+        values (#{commodityCode}, #{count})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update storage_tbl
+        <set>
+            <if test="commodityCode != null and commodityCode != ''">
+                commodity_code = #{commodityCode},
+            </if>
+            <if test="count != null">
+                count = #{count},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from storage_tbl where id = #{id}
+    </delete>
+
+</mapper>

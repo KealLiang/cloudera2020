@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kealliang.cloud.dao.OrderTblDao">
+
+    <resultMap type="com.kealliang.cloud.entity.OrderTbl" id="OrderTblMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <result property="commodityCode" column="commodity_code" jdbcType="VARCHAR"/>
+        <result property="count" column="count" jdbcType="INTEGER"/>
+        <result property="money" column="money" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OrderTblMap">
+        select
+          id, user_id, commodity_code, count, money, status
+        from order_tbl
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="OrderTblMap">
+        select
+          id, user_id, commodity_code, count, money, status
+        from order_tbl
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="OrderTblMap">
+        select
+          id, user_id, commodity_code, count, money, status
+        from order_tbl
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="userId != null and userId != ''">
+                and user_id = #{userId}
+            </if>
+            <if test="commodityCode != null and commodityCode != ''">
+                and commodity_code = #{commodityCode}
+            </if>
+            <if test="count != null">
+                and count = #{count}
+            </if>
+            <if test="money != null">
+                and money = #{money}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into order_tbl(user_id, commodity_code, count, money, status)
+        values (#{userId}, #{commodityCode}, #{count}, #{money}, #{status})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update order_tbl
+        <set>
+            <if test="userId != null and userId != ''">
+                user_id = #{userId},
+            </if>
+            <if test="commodityCode != null and commodityCode != ''">
+                commodity_code = #{commodityCode},
+            </if>
+            <if test="count != null">
+                count = #{count},
+            </if>
+            <if test="money != null">
+                money = #{money},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from order_tbl where id = #{id}
+    </delete>
+
+</mapper>

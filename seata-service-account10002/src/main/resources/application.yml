@@ -1,0 +1,27 @@
+server:
+  port: 10002
+spring:
+  application:
+    name: seata-service-account
+  cloud:
+    alibaba:
+      seata:
+        # 自定义事务组名称，需要与seata-server中配置的对应
+        tx-service-group: keal_tx_group
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3305/distribute_account?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: root
+feign:
+  hystrix:
+    enabled: false
+logging:
+  level:
+    io.seata: info
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml

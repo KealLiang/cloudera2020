@@ -39,6 +39,9 @@
     <module>cloud-provider-payment-combine9003</module>
     <module>cloud-provider-payment-combine9004</module>
       <module>cloud-consumer-nacos-combine84</module>
+      <module>seata-service-order10001</module>
+    <module>seata-service-account10002</module>
+    <module>seata-service-storage10003</module>
   </modules>
 
   <name>Maven</name>
@@ -63,6 +66,7 @@
     <mybatis.spring.boot.version>1.3.0</mybatis.spring.boot.version>
     <mybatis-spring-boot-starter.version>2.1.1</mybatis-spring-boot-starter.version>
     <hutool-all.version>5.1.0</hutool-all.version>
+    <alibaba.seata.version>1.0.0</alibaba.seata.version>
   </properties>
 
   <!--子模块继承后：锁定版本+子module不用写groupId和version-->
@@ -117,6 +121,12 @@
         <groupId>cn.hutool</groupId>
         <artifactId>hutool-all</artifactId>
         <version>${hutool-all.version}</version>
+      </dependency>
+      <!-- alibaba.seata -->
+      <dependency>
+        <groupId>io.seata</groupId>
+        <artifactId>seata-all</artifactId>
+        <version>${alibaba.seata.version}</version>
       </dependency>
 
       <!--commons模块依赖-->
