@@ -6,7 +6,7 @@ package com.kealliang.laboratory.test;
  * @Date 2020-04-07
  * @Vertion 1.0
  */
-public class TestClass {
+public class AliCalcTestClass {
     public static class Node{
         private Node nextNode;
         private Integer data;
