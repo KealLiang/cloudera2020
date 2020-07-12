@@ -30,13 +30,13 @@ public class FibonacciTest {
         long start = System.currentTimeMillis();
         for (int i = 0; i < num; i++) {
 //            dynamic(n);
-//            System.out.println(recursion(n));
-            System.out.println(dynamic(n));
+            System.out.println(recursion(n));
+//            System.out.println(dynamic(n));
         }
         System.out.println("计算耗时（毫秒）：" + (System.currentTimeMillis() - start));
     }
 
     public static void main(String[] args) {
-        run(50);
+        run(48);
     }
 }
