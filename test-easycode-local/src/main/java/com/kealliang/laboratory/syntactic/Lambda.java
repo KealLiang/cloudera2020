@@ -1,5 +1,10 @@
 package com.kealliang.laboratory.syntactic;
 
+import cn.hutool.json.JSONUtil;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +20,32 @@ import java.util.stream.Collectors;
  */
 public class Lambda {
     public static void main(String[] args) {
-        mapToNewMap();
+        sortedGrouping();
+
+//        mapToNewMap();
+    }
+
+    /**
+     * 分组排序
+     * @author lsr
+     * @description sortedGrouping
+     * @Date 2020/11/9
+     */
+    private static void sortedGrouping() {
+        String json = "[\n" +
+                "{\"id\":1, \"name\":\"老李\", \"gender\": \"男\"},\n" +
+                "{\"id\":2, \"name\":\"老王\", \"gender\": \"女\"},\n" +
+                "{\"id\":3, \"name\":\"赵三\", \"gender\": \"男\"},\n" +
+                "{\"id\":5, \"name\":\"刘二\", \"gender\": \"女\"},\n" +
+                "{\"id\":4, \"name\":\"许多\", \"gender\": \"女\"}\n" +
+                "]";
+
+        List<Person> personList = JSONUtil.toList(JSONUtil.parseArray(json), Person.class);
+
+        Map<String, List<Person>> collect = personList.stream()
+                .sorted((a, b) -> b.getId() - a.getId())
+                .collect(Collectors.groupingBy(Person::getGender));
+        System.out.println(collect);
     }
 
     /**
@@ -43,5 +73,14 @@ public class Lambda {
         // 方式2
         Map<String, Integer> countMap2 = originMap.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, m -> m.getValue().size()));
         System.out.println(countMap2);
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    static class Person {
+        private Integer id;
+        private String name;
+        private String gender;
     }
 }
