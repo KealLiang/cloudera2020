@@ -70,6 +70,21 @@
             <artifactId>hutool-all</artifactId>
         </dependency>
 
+        <!--制造有意义的mock数据-->
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+            <scope>test</scope>
+        </dependency>
+        <!--生成mockBean 大号的Random-->
+        <dependency>
+            <groupId>com.github.jsonzou</groupId>
+            <artifactId>jmockdata</artifactId>
+            <version>4.2.0</version>
+            <scope>test</scope>
+        </dependency>
+
         <!--spring boot 配置处理器-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
