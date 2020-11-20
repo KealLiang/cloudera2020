@@ -1,6 +1,7 @@
 package com.kealliang.laboratory.mock;
 
 import cn.hutool.json.JSONUtil;
+import com.github.javafaker.Faker;
 import com.github.jsonzou.jmockdata.JMockData;
 import com.github.jsonzou.jmockdata.MockConfig;
 import com.kealliang.laboratory.entity.Company;
@@ -9,6 +10,7 @@ import org.junit.Test;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.TypeVariable;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,6 +29,27 @@ public class MockTest {
     }
 
     /**
+     * 使用枚举的方式获取单例bean
+     * @author lsr
+     * @description
+     * @Date 2020/11/17
+     */
+    enum Single{
+        INSTANCE;
+        private Faker faker;
+
+        Single() {
+            faker = new Faker(Locale.CHINA);
+        }
+        public Faker getFaker() {
+            return faker;
+        }
+    }
+    public static Faker getFaker() {
+        return Single.INSTANCE.getFaker();
+    }
+
+    /**
      * 获取mock的bean，排除final修饰的域
      * @author lsr
      * @description getMockBean
@@ -37,6 +60,10 @@ public class MockTest {
         List<String> excludes = Arrays.stream(declaredFields)
                 .filter(f -> {
                     if (Modifier.isFinal(f.getModifiers()) || f.getType().equals(tClass)) {
+                        return true;
+                    }
+                    // 排除未定义的泛型域
+                    if (f.getGenericType() instanceof TypeVariable) {
                         return true;
                     }
                     // 避免递归创建导致的StackOverflowError
