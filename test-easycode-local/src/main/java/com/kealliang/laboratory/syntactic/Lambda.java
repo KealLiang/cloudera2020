@@ -5,10 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -20,7 +17,9 @@ import java.util.stream.Collectors;
  */
 public class Lambda {
     public static void main(String[] args) {
-        sortedGrouping();
+//        sortedGrouping();
+
+        sortedGroupingWithMostValue();
 
 //        mapToNewMap();
     }
@@ -32,6 +31,15 @@ public class Lambda {
      * @Date 2020/11/9
      */
     private static void sortedGrouping() {
+        List<Person> personList = getPeopleList();
+
+        Map<String, List<Person>> collect = personList.stream()
+                .sorted((a, b) -> b.getId() - a.getId())
+                .collect(Collectors.groupingBy(Person::getGender));
+        System.out.println(collect);
+    }
+
+    private static List<Person> getPeopleList() {
         String json = "[\n" +
                 "{\"id\":1, \"name\":\"老李\", \"gender\": \"男\"},\n" +
                 "{\"id\":2, \"name\":\"老王\", \"gender\": \"女\"},\n" +
@@ -40,12 +48,25 @@ public class Lambda {
                 "{\"id\":4, \"name\":\"许多\", \"gender\": \"女\"}\n" +
                 "]";
 
-        List<Person> personList = JSONUtil.toList(JSONUtil.parseArray(json), Person.class);
+        return JSONUtil.toList(JSONUtil.parseArray(json), Person.class);
+    }
 
-        Map<String, List<Person>> collect = personList.stream()
-                .sorted((a, b) -> b.getId() - a.getId())
-                .collect(Collectors.groupingBy(Person::getGender));
-        System.out.println(collect);
+    /**
+     * grouping分组并根据某个字段的最值获取数据
+     * @author lsr
+     * @description sortedGroupingWithMostValue
+     * @Date 2021/3/3
+     */
+    private static void sortedGroupingWithMostValue() {
+        List<Person> peopleList = getPeopleList();
+
+        Map<String, Person> result = peopleList.stream()
+                .collect(Collectors.groupingBy(Person::getGender, Collectors.collectingAndThen(
+                        Collectors.reducing((a, b) -> a.getId() >= b.getId() ? a : b), // 取id大的作为grouping的结果
+                        Optional::get
+                )));
+
+        System.out.println(result);
     }
 
     /**
