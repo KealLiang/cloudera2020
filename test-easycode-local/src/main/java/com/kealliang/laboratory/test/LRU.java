@@ -18,7 +18,7 @@ public class LRU<K,V> {
 	{
 		this.cacheSize = cacheSize;
 		map = new LinkedHashMap<K,V>(16,0.75F,true){
-			
+			// 构造方法中重写存储的map
 			@Override
 			protected boolean removeEldestEntry(Entry eldest) {
 				if(cacheSize + 1 == map.size()){
